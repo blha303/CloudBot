@@ -54,6 +54,8 @@ def spotify(inp):
     try:
         data = http.get_json("https://api.spotify.com/v1/search", type="track", limit="1", q=inp.strip())
         item = data["tracks"]["items"][0]
+    except IndexError:
+        return "Could not find track: no results."
     except Exception as e:
         return "Could not get information: {}".format(e)
     return format_track(item)
@@ -69,6 +71,8 @@ def spotify_album(inp):
     try:
         data = http.get_json("https://api.spotify.com/v1/search", type="album", limit="1", q=inp.strip())
         item = data["albums"]["items"][0]
+    except IndexError:
+        return "Could not find track: no results."
     except Exception as e:
         return "Could not get information: {}".format(e)
     return format_album(item)
@@ -84,6 +88,8 @@ def spotify_artist(inp):
     try:
         data = http.get_json("https://api.spotify.com/v1/search", type="artist", limit="1", q=inp.strip())
         item = data["artists"]["items"][0]
+    except IndexError:
+        return "Could not find track: no results."
     except Exception as e:
         return "Could not get information: {}".format(e)
     return format_artist(item)
